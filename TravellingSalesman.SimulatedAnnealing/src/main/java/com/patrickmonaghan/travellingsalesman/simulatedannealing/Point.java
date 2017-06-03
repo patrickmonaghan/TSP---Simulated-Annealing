@@ -4,8 +4,9 @@ package com.patrickmonaghan.travellingsalesman.simulatedannealing;
  * Models a point
  * @author Patrick Monaghan
  */
-public class Point {
+public class Point implements Cloneable{
 	
+	private String name;
 	private double lat;
 	private double lon;
 	
@@ -14,7 +15,8 @@ public class Point {
 	 * @param lat Latitude of new point
 	 * @param lon Longitude of new point
 	 */
-	public Point(double lat, double lon){
+	public Point(String name, double lat, double lon){
+		setName(name);
 		setLatitude(lat);
 		setLongitude(lon);
 	}
@@ -26,6 +28,22 @@ public class Point {
 	 */
 	public double distanceTo(Point point){
 		return Haversine.calculateDistance(this, point);
+	}
+
+	/**
+	 * Retrieve the name of the point
+	 * @return Name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Set the name
+	 * @param name New name value
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -59,6 +77,14 @@ public class Point {
 	public void setLongitude(double lon) {
 		this.lon = lon;
 	}
+	
+	@Override
+	public Point clone(){
+		Point p = new Point(this.getName(), this.getLatitude(), this.getLongitude());
+		return p;
+	}
+	
+	
 	
 	
 }
